@@ -1,5 +1,5 @@
-import 'package:bloc_state_management_sample/cubit/cart_cubit.dart';
-import 'package:bloc_state_management_sample/cubit/cart_state.dart';
+import 'package:bloc_state_management_sample/bloc/shopping_cart_bloc.dart';
+import 'package:bloc_state_management_sample/model/cart.dart';
 import 'package:bloc_state_management_sample/model/drink.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +11,7 @@ class DrinkItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cartCubit = BlocProvider.of<CartCubit>(context, listen: false);
+    final cartCubit = BlocProvider.of<ShoppingCartBloc>(context, listen: false);
     return Card(
       elevation: 6,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
@@ -28,7 +28,7 @@ class DrinkItem extends StatelessWidget {
     );
   }
 
-  Widget _buildFooter(Drink drink, BuildContext context, CartCubit cartCubit) {
+  Widget _buildFooter(Drink drink, BuildContext context, ShoppingCartBloc cartBloc) {
     return GridTileBar(
       backgroundColor: Colors.black38,
       title: Text(drink.title),
@@ -38,16 +38,16 @@ class DrinkItem extends StatelessWidget {
             '${drink.price} vnd',
             style: const TextStyle(fontSize: 12, color: Colors.white70),
           )),
-      trailing: BlocBuilder<CartCubit, CartState>(
+      trailing: BlocBuilder<ShoppingCartBloc, List<Cart>>(
         builder: (context, state) {
-          return cartCubit.isAdded(drink.id)
+          return cartBloc.isAdded(drink.id)
               ? IconButton(
             icon: const Icon(Icons.check_rounded),
-            onPressed: () => cartCubit.removeItem(drink.id),
+            onPressed: () => cartBloc.add(RemoveFromCartEvent(drink.id)),
           )
               : IconButton(
             icon: const Icon(Icons.add_rounded),
-            onPressed: () => cartCubit.addItem(drink.id),
+            onPressed: () => cartBloc.add(AddToCartEvent(drink.id)),
           );
         },
       ),

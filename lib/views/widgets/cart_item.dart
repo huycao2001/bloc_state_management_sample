@@ -1,4 +1,4 @@
-import 'package:bloc_state_management_sample/cubit/cart_cubit.dart';
+import 'package:bloc_state_management_sample/bloc/shopping_cart_bloc.dart';
 import 'package:bloc_state_management_sample/model/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,16 +25,16 @@ class CartItem extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.remove_rounded),
                 onPressed: () {
-                  BlocProvider.of<CartCubit>(context, listen: false)
-                      .removeItem(cart.drink.id);
+                  BlocProvider.of<ShoppingCartBloc>(context, listen: false)
+                      .add(RemoveFromCartEvent(cart.drink.id));
                 },
               ),
               Text('${cart.quantity}'),
               IconButton(
                 icon: const Icon(Icons.add_rounded),
                 onPressed: () {
-                  BlocProvider.of<CartCubit>(context, listen: false)
-                      .addItem(cart.drink.id);
+                  BlocProvider.of<ShoppingCartBloc>(context, listen: false)
+                      .add(AddToCartEvent(cart.drink.id));
                 },
               ),
             ],
