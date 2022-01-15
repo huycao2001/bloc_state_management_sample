@@ -9,19 +9,19 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cartCubit = Provider.of<ShoppingCartBloc>(context);
+    final cartBloc = Provider.of<ShoppingCartBloc>(context);
     return Scaffold(
       appBar: AppBar(title: const Text('Cart')),
       body: ListView.builder(
         padding: const EdgeInsets.only(bottom: 100),
-        itemCount: cartCubit.state.length,
+        itemCount: cartBloc.state.length,
         itemBuilder: (context, index) {
-          return CartItem(cartCubit.state[index]);
+          return CartItem(cartBloc.state[index]);
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => cartCubit.add(const CheckOutEvent()),
-        label: Text('${cartCubit.getTotalAmount()} vnd'),
+        onPressed: () => cartBloc.add(const CheckOutEvent()),
+        label: Text('${cartBloc.getTotalAmount()} vnd'),
         icon: const Icon(Icons.monetization_on_sharp),
       ),
     );

@@ -11,7 +11,7 @@ class DrinkItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cartCubit = BlocProvider.of<ShoppingCartBloc>(context, listen: false);
+    final cartBloc = BlocProvider.of<ShoppingCartBloc>(context, listen: false);
     return Card(
       elevation: 6,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
@@ -22,7 +22,7 @@ class DrinkItem extends StatelessWidget {
             drink.imageUrl,
             fit: BoxFit.cover,
           ),
-          footer: _buildFooter(drink, context, cartCubit),
+          footer: _buildFooter(drink, context, cartBloc),
         ),
       ),
     );
