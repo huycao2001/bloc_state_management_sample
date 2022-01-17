@@ -25,7 +25,7 @@ class CartItem extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.remove_rounded),
                 onPressed: () {
-                  BlocProvider.of<CartCubit>(context, listen: false)
+                  BlocProvider.of<CartCubit>(context)
                       .removeItem(cart.drink.id);
                 },
               ),
@@ -33,7 +33,7 @@ class CartItem extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.add_rounded),
                 onPressed: () {
-                  BlocProvider.of<CartCubit>(context, listen: false)
+                  BlocProvider.of<CartCubit>(context)
                       .addItem(cart.drink.id);
                 },
               ),
